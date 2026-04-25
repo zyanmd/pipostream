@@ -8,12 +8,17 @@ import Changelog from "@/components/Changelog";
 import Footer from "@/components/Footer";
 
 const appData = {
-  version: "2.0.1",
-  build_date: "2026-04-25 10:00:00",
-  force_update: true,
-  minimum_version: "2.0.1",
-  update_url: "https://www.mediafire.com/file/2e6l8lmy2brwjxy/2.0.1.apk/file",
+  version: "2.0.2",
+  build_date: "2026-04-25 15:00:00",
+  force_update: false,
+  minimum_version: "2.0.0",
+  update_url: "https://www.mediafire.com/file/tokl6q7sodqcb2m/2.0.2.apk/file",
   changelog: [
+    {
+      version: "2.0.2",
+      date: "2026-04-25",
+      changes: "🔧 Fullscreen Sembunyikan Status Bar | 🎬 Perbaikan Prev/Next Episode | 📡 Server Selector"
+    },
     {
       version: "2.0.1",
       date: "2026-04-25",
@@ -30,8 +35,8 @@ const appData = {
       changes: "🚀 Initial Release | Streaming Anime & Donghua"
     }
   ],
-  file_size: "4 MB",
-  release_notes: "Update performa & fitur terbaru!"
+  file_size: "52 MB",
+  release_notes: "Update: Fullscreen immersive mode, perbaikan navigasi episode, server selector"
 };
 
 export default function Home() {
@@ -55,7 +60,7 @@ export default function Home() {
             </div>
             <div className="space-y-3 text-gray-300">
               {[
-                "Download APK PipoStream",
+                "Download APK PipoStream versi terbaru",
                 "Buka file APK yang sudah didownload",
                 "Izinkan install dari sumber tidak dikenal",
                 "Klik Install",

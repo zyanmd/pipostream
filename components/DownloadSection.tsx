@@ -7,8 +7,8 @@ interface DownloadSectionProps {
 
 export default function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
   const handleDownload = () => {
-    // Buat link download APK
-    const downloadUrl = "https://www.mediafire.com/file/2e6l8lmy2brwjxy/2.0.1.apk/file";
+    // Gunakan update_url dari appData jika ada, fallback ke mediafire
+    const downloadUrl = appData.update_url || "https://www.mediafire.com/file/tokl6q7sodqcb2m/2.0.2.apk/file";
     window.location.href = downloadUrl;
   };
 
@@ -28,7 +28,7 @@ export default function DownloadSection({ appData, onShowGuide }: DownloadSectio
                 <HardDrive className="w-5 h-5 text-purple-400" />
                 <span className="text-gray-300">Ukuran File</span>
               </div>
-              <p className="text-white text-2xl font-bold">{appData.file_size}</p>
+              <p className="text-white text-2xl font-bold">{appData.file_size || "52 MB"}</p>
             </div>
             <div className="bg-black/30 rounded-xl p-4">
               <div className="flex items-center gap-3 mb-2">
@@ -45,7 +45,7 @@ export default function DownloadSection({ appData, onShowGuide }: DownloadSectio
               className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-lg"
             >
               <Download className="w-5 h-5" />
-              Download PipoStream APK
+              Download PipoStream APK v{appData.version}
             </button>
             
             <button
@@ -60,11 +60,17 @@ export default function DownloadSection({ appData, onShowGuide }: DownloadSectio
           <div className="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg flex items-start gap-3">
             <AlertCircle className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
             <p className="text-yellow-200 text-sm">
-              Aplikasi hanya tersedia untuk Android. Pastikan mengizinkan install dari sumber tidak dikenal di pengaturan keamanan device Anda.
+              ⚠️ Aplikasi hanya tersedia untuk Android. Pastikan mengizinkan install dari sumber tidak dikenal di pengaturan keamanan device Anda.
+            </p>
+          </div>
+
+          <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+            <p className="text-blue-200 text-xs text-center">
+              🔄 Update otomatis: Aplikasi akan mengecek versi terbaru saat dibuka
             </p>
           </div>
         </div>
       </div>
     </section>
   );
-}   
+}
