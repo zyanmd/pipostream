@@ -12,7 +12,7 @@ const appData = {
   build_date: "2026-04-25 10:00:00",
   force_update: true,
   minimum_version: "2.0.1",
-  update_url: "https://pipinipon.my.id",
+  update_url: "https://www.mediafire.com/file/2e6l8lmy2brwjxy/2.0.1.apk/file",
   changelog: [
     {
       version: "2.0.1",
