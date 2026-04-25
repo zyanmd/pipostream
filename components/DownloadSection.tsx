@@ -8,7 +8,7 @@ interface DownloadSectionProps {
 export default function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
   const handleDownload = () => {
     // Buat link download APK
-    const downloadUrl = "/api/download";
+    const downloadUrl = "/api/downloads/2.0.1.apk";
     window.location.href = downloadUrl;
   };
 

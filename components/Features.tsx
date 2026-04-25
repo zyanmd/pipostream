@@ -20,16 +20,6 @@ const features = [
     icon: Download,
     title: "Download Episode",
     description: "Tonton offline dengan fitur download episode favoritmu"
-  },
-  {
-    icon: Tv,
-    title: "Dukungan Chromecast",
-    description: "Tonton di layar TV dengan mudah"
-  },
-  {
-    icon: Languages,
-    title: "Multi Subtitle",
-    description: "Subtitle Indonesia, Inggris, dan pilihan bahasa lainnya"
   }
 ];
 
