@@ -17,21 +17,21 @@ const appData = {
     {
       version: "2.0.1",
       date: "2026-04-25",
-      changes: "Perbaikan: Fullscreen auto-rotate ke landscape, hapus like/dislike, navbar floating"
+      changes: "🎬 Fullscreen Auto-Rotate | ⭐ Hapus Like/Dislike | 📱 Navbar Floating"
     },
     {
       version: "2.0.0",
       date: "2026-04-24",
-      changes: "Update besar: Halaman Welcome untuk user belum login, sistem update otomatis"
+      changes: "👋 Halaman Welcome | 🔄 Auto Update System"
     },
     {
       version: "1.0.1",
       date: "2026-04-23",
-      changes: "Initial release dengan fitur streaming anime dan donghua"
+      changes: "🚀 Initial Release | Streaming Anime & Donghua"
     }
   ],
   file_size: "52 MB",
-  release_notes: "Update dengan berbagai perbaikan dan peningkatan performa, termasuk fullscreen auto-rotate dan halaman ranking!"
+  release_notes: "Update performa & fitur terbaru!"
 };
 
 export default function Home() {
@@ -47,35 +47,27 @@ export default function Home() {
       
       {/* Modal Install Guide */}
       {showInstallGuide && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in" onClick={() => setShowInstallGuide(false)}>
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl max-w-md w-full p-6 border border-purple-500/30 animate-slide-up" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowInstallGuide(false)}>
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl max-w-md w-full p-6 border border-purple-500/30" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold text-white">Panduan Install</h3>
-              <button onClick={() => setShowInstallGuide(false)} className="text-gray-400 hover:text-white">✕</button>
+              <button onClick={() => setShowInstallGuide(false)} className="text-gray-400 hover:text-white text-2xl leading-none">×</button>
             </div>
-            <div className="space-y-4 text-gray-300">
-              <div className="flex items-start gap-3">
-                <span className="bg-purple-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
-                <p>Download file APK PipoStream</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="bg-purple-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
-                <p>Buka file APK yang sudah di download</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="bg-purple-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
-                <p>Izinkan install dari sumber tidak dikenal (Settings → Security)</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="bg-purple-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
-                <p>Klik Install dan tunggu proses selesai</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="bg-purple-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">5</span>
-                <p>Buka aplikasi dan nikmati streaming anime & donghua!</p>
-              </div>
+            <div className="space-y-3 text-gray-300">
+              {[
+                "Download APK PipoStream",
+                "Buka file APK yang sudah didownload",
+                "Izinkan install dari sumber tidak dikenal",
+                "Klik Install",
+                "Buka & Nikmati Streaming!"
+              ].map((step, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</div>
+                  <p>{step}</p>
+                </div>
+              ))}
             </div>
-            <button onClick={() => setShowInstallGuide(false)} className="mt-6 w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-xl transition">
+            <button onClick={() => setShowInstallGuide(false)} className="mt-6 w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 rounded-xl transition">
               Tutup
             </button>
           </div>
