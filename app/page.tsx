@@ -30,7 +30,7 @@ const appData = {
       changes: "🚀 Initial Release | Streaming Anime & Donghua"
     }
   ],
-  file_size: "52 MB",
+  file_size: "4 MB",
   release_notes: "Update performa & fitur terbaru!"
 };
 
