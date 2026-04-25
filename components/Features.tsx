@@ -23,13 +23,13 @@ const features = [
   },
   {
     icon: Tv,
-    title: "Chromecast Support",
+    title: "Dukungan Chromecast",
     description: "Tonton di layar TV dengan mudah"
   },
   {
     icon: Languages,
     title: "Multi Subtitle",
-    description: "Subtitle Indonesia, English, dan pilihan bahasa lainnya"
+    description: "Subtitle Indonesia, Inggris, dan pilihan bahasa lainnya"
   }
 ];
 
@@ -46,7 +46,11 @@ export default function Features() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <div key={index} className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover:scale-105 animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
+            <div 
+              key={index} 
+              className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover:scale-105 animate-slide-up" 
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
               <feature.icon className="w-12 h-12 text-purple-400 mb-4" />
               <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
               <p className="text-gray-400">{feature.description}</p>
