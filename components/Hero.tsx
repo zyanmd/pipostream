@@ -11,7 +11,7 @@ export default function Hero() {
         <div className="animate-fade-in">
           <div className="inline-flex items-center gap-2 bg-purple-600/20 backdrop-blur-sm px-4 py-2 rounded-full border border-purple-500/30 mb-6">
             <Zap className="w-4 h-4 text-purple-400" />
-            <span className="text-purple-300 text-sm">Version 1.0.1</span>
+            <span className="text-purple-300 text-sm">Version 2.0.1</span>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
@@ -24,10 +24,6 @@ export default function Hero() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-              <Shield className="w-4 h-4 text-green-400" />
-              <span className="text-white text-sm">100% Aman & Legal</span>
-            </div>
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
               <Play className="w-4 h-4 text-blue-400" />
               <span className="text-white text-sm">HD Quality</span>

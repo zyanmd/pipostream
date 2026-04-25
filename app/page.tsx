@@ -8,20 +8,30 @@ import Changelog from "@/components/Changelog";
 import Footer from "@/components/Footer";
 
 const appData = {
-  version: "1.0.1",
+  version: "2.0.1",
   build_date: "2026-04-25 10:00:00",
-  force_update: false,
-  minimum_version: "1.0.0",
-  update_url: "",
+  force_update: true,
+  minimum_version: "2.0.1",
+  update_url: "https://pipinipon.my.id",
   changelog: [
     {
-      version: "1.0.1",
+      version: "2.0.1",
       date: "2026-04-25",
+      changes: "Perbaikan: Fullscreen auto-rotate ke landscape, hapus like/dislike, navbar floating"
+    },
+    {
+      version: "2.0.0",
+      date: "2026-04-24",
+      changes: "Update besar: Halaman Welcome untuk user belum login, sistem update otomatis"
+    },
+    {
+      version: "1.0.1",
+      date: "2026-04-23",
       changes: "Initial release dengan fitur streaming anime dan donghua"
     }
   ],
   file_size: "52 MB",
-  release_notes: "Versi awal aplikasi dengan koleksi lengkap anime dan donghua terbaru!"
+  release_notes: "Update dengan berbagai perbaikan dan peningkatan performa, termasuk fullscreen auto-rotate dan halaman ranking!"
 };
 
 export default function Home() {
