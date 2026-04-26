@@ -8,35 +8,52 @@ import Changelog from "@/components/Changelog";
 import Footer from "@/components/Footer";
 
 const appData = {
-  version: "2.0.2",
-  build_date: "2026-04-25 15:00:00",
+  version: "2.0.3",
+  build_date: "2026-04-26 17:00:00",
   force_update: false,
   minimum_version: "2.0.0",
-  update_url: "https://www.mediafire.com/file/tokl6q7sodqcb2m/2.0.2.apk/file",
+  update_url: "https://www.mediafire.com/file/104aje23tipkr1t/2.0.3.apk/file",
+  file_size: "52 MB",
+  release_notes: "Update besar: Fitur Komik (Manga, Manhwa, Manhua), Bookmark komik, History baca komik, Perbaikan tema gelap/terang",
   changelog: [
+    {
+      version: "2.0.3",
+      date: "2026-04-26",
+      changes: "📚 Fitur Komik (Manga/Manhwa/Manhua) | 🔖 Bookmark Komik | 📖 History Baca Komik | 🎨 Perbaikan Tema Gelap/Terang | 🐛 Fix Berbagai Bug"
+    },
     {
       version: "2.0.2",
       date: "2026-04-25",
-      changes: "🔧 Fullscreen Sembunyikan Status Bar | 🎬 Perbaikan Prev/Next Episode | 📡 Server Selector"
+      changes: "🔧 Fullscreen Sembunyikan Status Bar & Navbar | 🎬 Perbaikan Prev/Next Episode | 📡 Server Selector"
     },
     {
       version: "2.0.1",
       date: "2026-04-25",
-      changes: "🎬 Fullscreen Auto-Rotate | ⭐ Hapus Like/Dislike | 📱 Navbar Floating"
+      changes: "🎬 Fullscreen Auto-Rotate ke Landscape | ⭐ Hapus Like/Dislike | 📱 Navbar Floating"
     },
     {
       version: "2.0.0",
       date: "2026-04-24",
-      changes: "👋 Halaman Welcome | 🔄 Auto Update System"
+      changes: "👋 Halaman Welcome untuk User Baru | 🔄 Sistem Update Otomatis"
     },
     {
       version: "1.0.1",
       date: "2026-04-23",
-      changes: "🚀 Initial Release | Streaming Anime & Donghua"
+      changes: "🚀 Initial Release | Streaming Anime & Donghua Subtitle Indonesia"
     }
   ],
-  file_size: "52 MB",
-  release_notes: "Update: Fullscreen immersive mode, perbaikan navigasi episode, server selector"
+  download_links: [
+    {
+      name: "MediaFire",
+      url: "https://www.mediafire.com/file/104aje23tipkr1t/2.0.3.apk/file",
+      icon: "🔥"
+    },
+    {
+      name: "Direct Download",
+      url: "https://api.pipinipon.site/downloads/2.0.3.apk",
+      icon: "⚡"
+    }
+  ]
 };
 
 export default function Home() {
@@ -55,16 +72,16 @@ export default function Home() {
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowInstallGuide(false)}>
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl max-w-md w-full p-6 border border-purple-500/30" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-white">Panduan Install</h3>
+              <h3 className="text-xl font-bold text-white">📱 Panduan Install</h3>
               <button onClick={() => setShowInstallGuide(false)} className="text-gray-400 hover:text-white text-2xl leading-none">×</button>
             </div>
             <div className="space-y-3 text-gray-300">
               {[
                 "Download APK PipoStream versi terbaru",
                 "Buka file APK yang sudah didownload",
-                "Izinkan install dari sumber tidak dikenal",
+                "Izinkan install dari sumber tidak dikenal (Jika muncul peringatan)",
                 "Klik Install",
-                "Buka & Nikmati Streaming!"
+                "Buka & Nikmati Streaming Anime, Donghua, & Komik!"
               ].map((step, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</div>
@@ -72,7 +89,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <button onClick={() => setShowInstallGuide(false)} className="mt-6 w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 rounded-xl transition">
+            <button onClick={() => setShowInstallGuide(false)} className="mt-6 w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold py-2.5 rounded-xl transition">
               Tutup
             </button>
           </div>
