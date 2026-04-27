@@ -8,14 +8,24 @@ import Changelog from "@/components/Changelog";
 import Footer from "@/components/Footer";
 
 const appData = {
-  version: "2.0.3",
-  build_date: "2026-04-26 17:00:00",
-  force_update: false,
-  minimum_version: "2.0.0",
-  update_url: "https://www.mediafire.com/file/104aje23tipkr1t/2.0.3.apk/file",
-  file_size: "52 MB",
-  release_notes: "Update besar: Fitur Komik (Manga, Manhwa, Manhua), Bookmark komik, History baca komik, Perbaikan tema gelap/terang",
+  version: "2.0.5",
+  build_date: "2026-04-27 14:30:00",
+  force_update: true,
+  minimum_version: "2.0.4",
+  update_url: "https://www.mediafire.com/file/ssu2rqsmnqc4h4i/2.0.5.apk/file",
+  file_size: "4.5 MB",
+  release_notes: "Update versi 2.0.5: Perbaikan loading screen dengan loading bar animasi, penambahan tema gelap/terang di semua halaman, optimasi tampilan untuk mode potrait, serta berbagai perbaikan bug dan peningkatan performa.",
   changelog: [
+    {
+      version: "2.0.5",
+      date: "2026-04-27",
+      changes: "⚡ Perbaikan loading screen dengan loading bar | 🎨 Penambahan tema gelap/terang pada seluruh halaman | 📱 Optimasi tampilan mobile potrait | 🐛 Fix berbagai bug dan peningkatan performa"
+    },
+    {
+      version: "2.0.4",
+      date: "2026-04-27",
+      changes: "📚 Menambahkan fitur Komik (Manga, Manhwa, Manhua) | 🔖 Bookmark komik | 📖 History baca komik | 🎨 Perbaikan tema gelap/terang | 🐛 Fix berbagai bug"
+    },
     {
       version: "2.0.3",
       date: "2026-04-26",
@@ -45,12 +55,12 @@ const appData = {
   download_links: [
     {
       name: "MediaFire",
-      url: "https://www.mediafire.com/file/104aje23tipkr1t/2.0.3.apk/file",
+      url: "https://www.mediafire.com/file/ssu2rqsmnqc4h4i/2.0.5.apk/file",
       icon: "🔥"
     },
     {
       name: "Direct Download",
-      url: "https://api.pipinipon.site/downloads/2.0.3.apk",
+      url: "https://api.pipinipon.site/downloads/2.0.5.apk",
       icon: "⚡"
     }
   ]
