@@ -8,14 +8,19 @@ import Changelog from "@/components/Changelog";
 import Footer from "@/components/Footer";
 
 const appData = {
-  version: "2.0.5",
-  build_date: "2026-04-27 14:30:00",
+  version: "2.0.6",
+  build_date: "2026-04-30 00:00:00",
   force_update: true,
   minimum_version: "2.0.4",
-  update_url: "https://www.mediafire.com/file/ssu2rqsmnqc4h4i/2.0.5.apk/file",
+  update_url: "https://www.mediafire.com/file/n2pj37wpsjlaw6x/2.0.6.apk/file",
   file_size: "4.5 MB",
-  release_notes: "Update versi 2.0.5: Perbaikan loading screen dengan loading bar animasi, penambahan tema gelap/terang di semua halaman, optimasi tampilan untuk mode potrait, serta berbagai perbaikan bug dan peningkatan performa.",
+  release_notes: "Update versi 2.0.6: Modernisasi tampilan card anime dan donghua, optimasi fullscreen video, serta berbagai perbaikan bug dan peningkatan performa aplikasi.",
   changelog: [
+    {
+      version: "2.0.6",
+      date: "2026-04-30",
+      changes: "🎨 Modernisasi tampilan card anime | 📱 Optimasi fullscreen video (status bar auto hide) | 🐛 Fix berbagai bug | ⚡ Peningkatan performa aplikasi"
+    },
     {
       version: "2.0.5",
       date: "2026-04-27",
@@ -55,12 +60,12 @@ const appData = {
   download_links: [
     {
       name: "MediaFire",
-      url: "https://www.mediafire.com/file/ssu2rqsmnqc4h4i/2.0.5.apk/file",
+      url: "https://www.mediafire.com/file/n2pj37wpsjlaw6x/2.0.6.apk/file",
       icon: "🔥"
     },
     {
       name: "Direct Download",
-      url: "https://api.pipinipon.site/downloads/2.0.5.apk",
+      url: "https://api.pipinipon.site/downloads/2.0.6.apk",
       icon: "⚡"
     }
   ]
