@@ -1,78 +1,91 @@
+// app/page.js atau pages/index.js
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import DownloadSection from "@/components/DownloadSection";
 import Changelog from "@/components/Changelog";
 import Footer from "@/components/Footer";
-
-const appData = {
-  version: "2.0.6",
-  build_date: "2026-04-30 00:00:00",
-  force_update: true,
-  minimum_version: "2.0.4",
-  update_url: "https://www.mediafire.com/file/n2pj37wpsjlaw6x/2.0.6.apk/file",
-  file_size: "4.5 MB",
-  release_notes: "Update versi 2.0.6: Modernisasi tampilan card anime dan donghua, optimasi fullscreen video, serta berbagai perbaikan bug dan peningkatan performa aplikasi.",
-  changelog: [
-    {
-      version: "2.0.6",
-      date: "2026-04-30",
-      changes: "🎨 Modernisasi tampilan card anime | 📱 Optimasi fullscreen video (status bar auto hide) | 🐛 Fix berbagai bug | ⚡ Peningkatan performa aplikasi"
-    },
-    {
-      version: "2.0.5",
-      date: "2026-04-27",
-      changes: "⚡ Perbaikan loading screen dengan loading bar | 🎨 Penambahan tema gelap/terang pada seluruh halaman | 📱 Optimasi tampilan mobile potrait | 🐛 Fix berbagai bug dan peningkatan performa"
-    },
-    {
-      version: "2.0.4",
-      date: "2026-04-27",
-      changes: "📚 Menambahkan fitur Komik (Manga, Manhwa, Manhua) | 🔖 Bookmark komik | 📖 History baca komik | 🎨 Perbaikan tema gelap/terang | 🐛 Fix berbagai bug"
-    },
-    {
-      version: "2.0.3",
-      date: "2026-04-26",
-      changes: "📚 Fitur Komik (Manga/Manhwa/Manhua) | 🔖 Bookmark Komik | 📖 History Baca Komik | 🎨 Perbaikan Tema Gelap/Terang | 🐛 Fix Berbagai Bug"
-    },
-    {
-      version: "2.0.2",
-      date: "2026-04-25",
-      changes: "🔧 Fullscreen Sembunyikan Status Bar & Navbar | 🎬 Perbaikan Prev/Next Episode | 📡 Server Selector"
-    },
-    {
-      version: "2.0.1",
-      date: "2026-04-25",
-      changes: "🎬 Fullscreen Auto-Rotate ke Landscape | ⭐ Hapus Like/Dislike | 📱 Navbar Floating"
-    },
-    {
-      version: "2.0.0",
-      date: "2026-04-24",
-      changes: "👋 Halaman Welcome untuk User Baru | 🔄 Sistem Update Otomatis"
-    },
-    {
-      version: "1.0.1",
-      date: "2026-04-23",
-      changes: "🚀 Initial Release | Streaming Anime & Donghua Subtitle Indonesia"
-    }
-  ],
-  download_links: [
-    {
-      name: "MediaFire",
-      url: "https://www.mediafire.com/file/n2pj37wpsjlaw6x/2.0.6.apk/file",
-      icon: "🔥"
-    },
-    {
-      name: "Direct Download",
-      url: "https://api.pipinipon.site/downloads/2.0.6.apk",
-      icon: "⚡"
-    }
-  ]
-};
+import { versionAPI, DEFAULT_VERSION_DATA } from "@/lib/api";
 
 export default function Home() {
   const [showInstallGuide, setShowInstallGuide] = useState(false);
+  const [appData, setAppData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchVersionData = async () => {
+      try {
+        const result = await versionAPI.getVersion();
+        
+        if (result.success) {
+          setAppData({
+            version: result.version,
+            build_date: result.build_date,
+            force_update: result.force_update,
+            minimum_version: result.minimum_version,
+            update_url: result.update_url,
+            file_size: result.file_size,
+            release_notes: result.release_notes,
+            changelog: result.changelog,
+            download_links: [
+              {
+                name: "MediaFire",
+                url: result.update_url || DEFAULT_VERSION_DATA.download_links[0].url,
+                icon: "🔥"
+              },
+              {
+                name: "Direct Download",
+                url: versionAPI.getDownloadUrl(),
+                icon: "⚡"
+              }
+            ]
+          });
+        } else {
+          // Use fallback data if API fails
+          setAppData(DEFAULT_VERSION_DATA);
+          setError(true);
+        }
+      } catch (err) {
+        console.error("Error fetching version:", err);
+        setAppData(DEFAULT_VERSION_DATA);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVersionData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin mx-auto"></div>
+          <p className="text-white mt-4">Memuat informasi versi...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!appData) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-white text-lg">Gagal memuat data. Silakan refresh halaman.</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 px-6 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-700"
+          >
+            Refresh
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -81,6 +94,16 @@ export default function Home() {
       <DownloadSection appData={appData} onShowGuide={() => setShowInstallGuide(true)} />
       <Changelog changelog={appData.changelog} version={appData.version} />
       <Footer />
+      
+      {/* Error banner if using fallback data */}
+      {error && (
+        <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:bottom-4 md:max-w-sm bg-yellow-500/90 backdrop-blur-sm text-white p-3 rounded-lg text-sm z-50">
+          <p className="flex items-center gap-2">
+            <span>⚠️</span> 
+            Menggunakan data offline. Koneksi ke server bermasalah.
+          </p>
+        </div>
+      )}
       
       {/* Modal Install Guide */}
       {showInstallGuide && (
@@ -96,7 +119,7 @@ export default function Home() {
                 "Buka file APK yang sudah didownload",
                 "Izinkan install dari sumber tidak dikenal (Jika muncul peringatan)",
                 "Klik Install",
-                "Buka & Nikmati Streaming Anime, Donghua, & Komik!"
+                "Buka & Nikmati Streaming Anime, Donghua, Komik & Novel!"
               ].map((step, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</div>
