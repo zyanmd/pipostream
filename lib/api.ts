@@ -1,46 +1,117 @@
-// lib/api.js
+// lib/api.ts
 const API_BASE_URL = 'https://api.pipinipon.site/api';
+
+// Type definitions
+export interface ChangelogItem {
+  version: string;
+  date: string;
+  changes: string;
+}
+
+export interface DownloadLink {
+  name: string;
+  url: string;
+  icon: string;
+}
+
+export interface VersionData {
+  success: boolean;
+  version: string;
+  build_date: string;
+  build_number: number;
+  force_update: boolean;
+  minimum_version: string;
+  update_url: string;
+  file_size: string;
+  release_notes: string;
+  changelog: ChangelogItem[];
+}
+
+export interface AppData {
+  version: string;
+  build_date: string;
+  force_update: boolean;
+  minimum_version: string;
+  update_url: string;
+  file_size: string;
+  release_notes: string;
+  changelog: ChangelogItem[];
+  download_links: DownloadLink[];
+}
 
 export const versionAPI = {
   /**
    * Get current app version information
-   * @returns {Promise<Object>} Version data
    */
-  getVersion: async () => {
+  getVersion: async (): Promise<VersionData> => {
     try {
       const response = await fetch(`${API_BASE_URL}/version`);
       const data = await response.json();
       
-      if (data.success) {
+      if (data && data.success === true) {
         return {
           success: true,
-          version: data.version,
-          build_date: data.build_date,
-          build_number: data.build_number,
-          force_update: data.force_update,
-          minimum_version: data.minimum_version,
-          update_url: data.update_url,
-          file_size: data.file_size,
-          release_notes: data.release_notes,
+          version: data.version || '2.0.9',
+          build_date: data.build_date || '',
+          build_number: data.build_number || 10,
+          force_update: data.force_update || false,
+          minimum_version: data.minimum_version || '2.0.9',
+          update_url: data.update_url || '',
+          file_size: data.file_size || '4.5 MB',
+          release_notes: data.release_notes || '',
           changelog: data.changelog || []
         };
       }
-      throw new Error('Failed to fetch version');
+      
+      // If API returns data without success property but has version
+      if (data && data.version) {
+        return {
+          success: true,
+          version: data.version,
+          build_date: data.build_date || '',
+          build_number: data.build_number || 1,
+          force_update: data.force_update || false,
+          minimum_version: data.minimum_version || data.version,
+          update_url: data.update_url || '',
+          file_size: data.file_size || '4.5 MB',
+          release_notes: data.release_notes || '',
+          changelog: data.changelog || []
+        };
+      }
+      
+      return { 
+        success: false, 
+        version: '2.0.9',
+        build_date: '',
+        build_number: 10,
+        force_update: false,
+        minimum_version: '2.0.9',
+        update_url: '',
+        file_size: '4.5 MB',
+        release_notes: '',
+        changelog: []
+      };
     } catch (error) {
       console.error('Error fetching version:', error);
-      return {
-        success: false,
-        error: error.message
+      return { 
+        success: false, 
+        version: '2.0.9',
+        build_date: '',
+        build_number: 10,
+        force_update: false,
+        minimum_version: '2.0.9',
+        update_url: '',
+        file_size: '4.5 MB',
+        release_notes: '',
+        changelog: []
       };
     }
   },
 
   /**
    * Check if update is needed
-   * @param {string} currentVersion - Current app version
-   * @returns {Promise<Object>}
    */
-  checkUpdate: async (currentVersion) => {
+  checkUpdate: async (currentVersion: string): Promise<{ success: boolean; needs_update?: boolean; is_obsolete?: boolean; current_version?: string; latest_version?: string; force_update?: boolean; update_url?: string; file_size?: string; changelog?: ChangelogItem[]; message?: string; error?: string }> => {
     try {
       const response = await fetch(`${API_BASE_URL}/version/check`, {
         method: 'POST',
@@ -49,27 +120,26 @@ export const versionAPI = {
         },
         body: JSON.stringify({ client_version: currentVersion })
       });
-      return await response.json();
+      const data = await response.json();
+      return data;
     } catch (error) {
       console.error('Error checking update:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: (error as Error).message };
     }
   },
 
   /**
    * Get direct download link
-   * @returns {string} Download URL
    */
-  getDownloadUrl: () => {
+  getDownloadUrl: (): string => {
     return `${API_BASE_URL}/version/download`;
   }
 };
 
 // Default fallback data if API fails
-export const DEFAULT_VERSION_DATA = {
+export const DEFAULT_VERSION_DATA: AppData = {
   version: "2.0.9",
   build_date: "2026-05-08 00:00:00",
-  build_number: 10,
   force_update: false,
   minimum_version: "2.0.9",
   update_url: "https://www.mediafire.com/file/b1yhp72cnvotdt7/2.0.9.apk/file",

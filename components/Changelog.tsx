@@ -1,45 +1,71 @@
-import { GitBranch, Calendar, Code } from "lucide-react";
+// components/Changelog.tsx
+"use client";
+
+import { useState } from "react";
+import { ChangelogItem } from "@/lib/api";
 
 interface ChangelogProps {
-  changelog: Array<{
-    version: string;
-    date: string;
-    changes: string;
-  }>;
+  changelog: ChangelogItem[];
   version: string;
 }
 
 export default function Changelog({ changelog, version }: ChangelogProps) {
+  const [showAll, setShowAll] = useState<boolean>(false);
+  
+  const displayedChangelog = showAll ? changelog : changelog.slice(0, 5);
+
+  if (!changelog || changelog.length === 0) {
+    return null;
+  }
+
   return (
-    <section className="py-20 px-4 bg-black/30">
-      <div className="container mx-auto max-w-3xl">
-        <div className="text-center mb-8">
-          <GitBranch className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-          <h2 className="text-3xl font-bold text-white mb-2">Riwayat Update</h2>
-          <p className="text-gray-400">Perubahan terbaru pada aplikasi PipoStream</p>
+    <section className="py-20 px-4 bg-white/5">
+      <div className="container mx-auto max-w-4xl">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Riwayat Update
+          </h2>
+          <p className="text-gray-300">
+            Perubahan dan peningkatan pada setiap versi PipoStream
+          </p>
         </div>
-        
+
         <div className="space-y-4">
-          {changelog.map((item, index) => (
-            <div key={index} className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl p-6 border border-purple-500/20 animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
-              <div className="flex flex-wrap justify-between items-start mb-3 gap-2">
+          {displayedChangelog.map((item, index) => (
+            <div
+              key={index}
+              className={`p-4 rounded-lg ${
+                item.version === version
+                  ? "bg-purple-600/20 border border-purple-500/50"
+                  : "bg-white/5"
+              }`}
+            >
+              <div className="flex flex-wrap items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <Code className="w-5 h-5 text-purple-400" />
-                  <span className="text-white font-bold text-lg">v{item.version}</span>
+                  <span className="text-purple-400 font-bold">v{item.version}</span>
+                  {item.version === version && (
+                    <span className="text-xs bg-purple-600 text-white px-2 py-0.5 rounded-full">
+                      Terbaru
+                    </span>
+                  )}
                 </div>
-                <div className="flex items-center gap-2 text-gray-400">
-                  <Calendar className="w-4 h-4" />
-                  <span className="text-sm">{item.date}</span>
-                </div>
+                <span className="text-gray-400 text-sm">{item.date}</span>
               </div>
-              <p className="text-gray-300">{item.changes}</p>
+              <p className="text-gray-300 text-sm leading-relaxed">{item.changes}</p>
             </div>
           ))}
         </div>
-        
-        <div className="mt-6 text-center text-gray-500 text-sm">
-          Update terakhir: {changelog[0].date}
-        </div>
+
+        {changelog.length > 5 && (
+          <div className="text-center mt-8">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="text-purple-400 hover:text-purple-300 text-sm"
+            >
+              {showAll ? "Tampilkan lebih sedikit ↑" : `Lihat ${changelog.length - 5} versi sebelumnya ↓`}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-// app/page.js atau pages/index.js
+// pages/index.tsx atau app/page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,20 +7,20 @@ import Features from "@/components/Features";
 import DownloadSection from "@/components/DownloadSection";
 import Changelog from "@/components/Changelog";
 import Footer from "@/components/Footer";
-import { versionAPI, DEFAULT_VERSION_DATA } from "@/lib/api";
+import { versionAPI, DEFAULT_VERSION_DATA, AppData } from "@/lib/api";
 
 export default function Home() {
-  const [showInstallGuide, setShowInstallGuide] = useState(false);
-  const [appData, setAppData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [showInstallGuide, setShowInstallGuide] = useState<boolean>(false);
+  const [appData, setAppData] = useState<AppData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchVersionData = async () => {
       try {
         const result = await versionAPI.getVersion();
         
-        if (result.success) {
+        if (result && result.success === true) {
           setAppData({
             version: result.version,
             build_date: result.build_date,

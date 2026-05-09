@@ -1,75 +1,88 @@
-import { Download, Smartphone, HardDrive, Info, Calendar, AlertCircle } from "lucide-react";
+// components/DownloadSection.tsx
+"use client";
+
+import { useState } from "react";
+import { AppData } from "@/lib/api";
 
 interface DownloadSectionProps {
-  appData: any;
+  appData: AppData;
   onShowGuide: () => void;
 }
 
 export default function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
-  const handleDownload = () => {
-    // Gunakan update_url dari appData jika ada, fallback ke mediafire
-    const downloadUrl = appData.update_url || "https://www.mediafire.com/file/tokl6q7sodqcb2m/2.0.2.apk/file";
-    window.location.href = downloadUrl;
+  const [copied, setCopied] = useState<boolean>(false);
+
+  const handleCopyLink = (url: string) => {
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
     <section className="py-20 px-4">
       <div className="container mx-auto max-w-4xl">
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-purple-500/30 shadow-2xl animate-slide-up">
-          <div className="text-center mb-8">
-            <Smartphone className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-            <h2 className="text-3xl font-bold text-white mb-2">Download Sekarang</h2>
-            <p className="text-gray-400">Tersedia khusus untuk Android</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-black/30 rounded-xl p-4">
-              <div className="flex items-center gap-3 mb-2">
-                <HardDrive className="w-5 h-5 text-purple-400" />
-                <span className="text-gray-300">Ukuran File</span>
-              </div>
-              <p className="text-white text-2xl font-bold">{appData.file_size || "52 MB"}</p>
-            </div>
-            <div className="bg-black/30 rounded-xl p-4">
-              <div className="flex items-center gap-3 mb-2">
-                <Calendar className="w-5 h-5 text-purple-400" />
-                <span className="text-gray-300">Versi Terbaru</span>
-              </div>
-              <p className="text-white text-2xl font-bold">{appData.version}</p>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <button
-              onClick={handleDownload}
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-lg"
-            >
-              <Download className="w-5 h-5" />
-              Download PipoStream APK v{appData.version}
-            </button>
-            
-            <button
-              onClick={onShowGuide}
-              className="w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 rounded-xl transition flex items-center justify-center gap-2"
-            >
-              <Info className="w-4 h-4" />
-              Panduan Install
-            </button>
-          </div>
-          
-          <div className="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
-            <p className="text-yellow-200 text-sm">
-              ⚠️ Aplikasi hanya tersedia untuk Android. Pastikan mengizinkan install dari sumber tidak dikenal di pengaturan keamanan device Anda.
-            </p>
-          </div>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Download PipoStream
+          </h2>
+          <p className="text-gray-300 text-lg">
+            Versi {appData.version} • {appData.file_size}
+          </p>
+          <p className="text-gray-400 text-sm mt-2">
+            Dibangun pada: {appData.build_date}
+          </p>
+        </div>
 
-          <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-            <p className="text-blue-200 text-xs text-center">
-              🔄 Update otomatis: Aplikasi akan mengecek versi terbaru saat dibuka
-            </p>
+        <div className="grid md:grid-cols-2 gap-4 mb-8">
+          {appData.download_links.map((link, index) => (
+            <a
+              key={index}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold py-4 px-6 rounded-xl transition transform hover:scale-105"
+            >
+              <span className="text-2xl">{link.icon}</span>
+              <span>Download via {link.name}</span>
+            </a>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <button
+            onClick={onShowGuide}
+            className="text-purple-400 hover:text-purple-300 underline text-sm"
+          >
+            📱 Panduan Install APK
+          </button>
+        </div>
+
+        <div className="mt-8 p-4 bg-white/5 rounded-lg">
+          <p className="text-gray-300 text-sm text-center mb-2">
+            💡 Atau salin link download:
+          </p>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              readOnly
+              value={appData.download_links[0]?.url || ''}
+              className="flex-1 bg-gray-800 text-white text-sm px-3 py-2 rounded-lg border border-gray-700 focus:outline-none"
+            />
+            <button
+              onClick={() => handleCopyLink(appData.download_links[0]?.url || '')}
+              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-white text-sm font-medium transition"
+            >
+              {copied ? "Copied! ✓" : "Copy"}
+            </button>
           </div>
         </div>
+
+        {appData.release_notes && (
+          <div className="mt-8 p-4 bg-white/5 rounded-lg">
+            <h3 className="text-white font-semibold mb-2">📝 Release Notes</h3>
+            <p className="text-gray-300 text-sm">{appData.release_notes}</p>
+          </div>
+        )}
       </div>
     </section>
   );
