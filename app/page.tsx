@@ -1,3 +1,4 @@
+// app/page.tsx atau pages/index.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -6,7 +7,7 @@ import Features from "@/components/Features";
 import DownloadSection from "@/components/DownloadSection";
 import Changelog from "@/components/Changelog";
 import Footer from "@/components/Footer";
-import { versionAPI, DEFAULT_VERSION_DATA, AppData } from "@/lib/api";
+import { versionAPI, AppData } from "@/lib/api";
 
 /* ─── Loading Screen ─── */
 function LoadingScreen() {
@@ -36,7 +37,7 @@ function LoadingScreen() {
 }
 
 /* ─── Error Screen ─── */
-function ErrorScreen() {
+function ErrorScreen({ onRetry }: { onRetry: () => void }) {
   return (
     <div className="min-h-screen bg-[#060608] flex items-center justify-center p-6">
       <div className="max-w-sm w-full text-center space-y-6">
@@ -48,7 +49,7 @@ function ErrorScreen() {
           </p>
         </div>
         <button
-          onClick={() => window.location.reload()}
+          onClick={onRetry}
           className="inline-flex items-center gap-2 px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold rounded-xl transition-colors duration-200"
         >
           <span>↺</span> Coba Lagi
@@ -65,7 +66,7 @@ function OfflineBanner({ onDismiss }: { onDismiss: () => void }) {
       <div className="flex items-center gap-3 bg-amber-500/10 border border-amber-500/25 backdrop-blur-xl rounded-2xl px-4 py-3 shadow-xl">
         <span className="text-amber-400 text-base shrink-0">⚠</span>
         <p className="text-amber-200/80 text-xs leading-snug flex-1">
-          Mode offline — menggunakan data tersimpan. Koneksi server bermasalah.
+          Koneksi server bermasalah. Silakan coba lagi nanti.
         </p>
         <button
           onClick={onDismiss}
@@ -149,52 +150,58 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const fetchVersionData = async () => {
-      try {
-        const result = await versionAPI.getVersion();
+  const fetchVersionData = async () => {
+    setLoading(true);
+    setError(false);
+    
+    try {
+      const result = await versionAPI.getVersion();
 
-        if (result?.success === true) {
-          setAppData({
-            version: result.version,
-            build_date: result.build_date,
-            force_update: result.force_update,
-            minimum_version: result.minimum_version,
-            update_url: result.update_url,
-            file_size: result.file_size,
-            release_notes: result.release_notes,
-            changelog: result.changelog,
-            download_links: [
-              {
-                name: "MediaFire",
-                url: result.update_url || DEFAULT_VERSION_DATA.download_links[0].url,
-                icon: "🔥",
-              },
-              {
-                name: "Direct Download",
-                url: versionAPI.getDownloadUrl(),
-                icon: "⚡",
-              },
-            ],
-          });
-        } else {
-          setAppData(DEFAULT_VERSION_DATA);
-          setError(true);
-        }
-      } catch (err) {
-        console.error("Error fetching version:", err);
-        setAppData(DEFAULT_VERSION_DATA);
+      if (result?.success === true && result.version) {
+        setAppData({
+          version: result.version,
+          build_date: result.build_date,
+          force_update: result.force_update,
+          minimum_version: result.minimum_version,
+          update_url: result.update_url,
+          file_size: result.file_size,
+          release_notes: result.release_notes,
+          changelog: result.changelog,
+          download_links: [
+            {
+              name: "MediaFire",
+              url: result.update_url,
+              icon: "🔥",
+            },
+            {
+              name: "Direct Download",
+              url: versionAPI.getDownloadUrl(),
+              icon: "⚡",
+            },
+          ],
+        });
+      } else {
         setError(true);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (err) {
+      console.error("Error fetching version:", err);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchVersionData();
   }, []);
 
+  const handleRetry = () => {
+    fetchVersionData();
+  };
+
   if (loading) return <LoadingScreen />;
-  if (!appData) return <ErrorScreen />;
+  if (error) return <ErrorScreen onRetry={handleRetry} />;
+  if (!appData) return <ErrorScreen onRetry={handleRetry} />;
 
   return (
     <main className="min-h-screen bg-[#060608] overflow-x-hidden">
@@ -204,7 +211,7 @@ export default function Home() {
       <Changelog changelog={appData.changelog} version={appData.version} />
       <Footer />
 
-      {error && showBanner && <OfflineBanner onDismiss={() => setShowBanner(false)} />}
+      {showBanner && <OfflineBanner onDismiss={() => setShowBanner(false)} />}
       {showInstallGuide && <InstallGuideModal onClose={() => setShowInstallGuide(false)} />}
     </main>
   );
