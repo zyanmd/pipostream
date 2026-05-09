@@ -1,4 +1,3 @@
-// pages/index.tsx atau app/page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -9,18 +8,153 @@ import Changelog from "@/components/Changelog";
 import Footer from "@/components/Footer";
 import { versionAPI, DEFAULT_VERSION_DATA, AppData } from "@/lib/api";
 
+/* ─── Loading Screen ─── */
+function LoadingScreen() {
+  return (
+    <div className="min-h-screen bg-[#060608] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-5">
+        {/* Animated logo mark */}
+        <div className="relative w-14 h-14">
+          <span className="absolute inset-0 rounded-2xl bg-violet-500/20 animate-ping" />
+          <span className="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-violet-600/30 border border-violet-500/40 text-2xl">
+            🎬
+          </span>
+        </div>
+        <div className="flex flex-col items-center gap-1">
+          <p className="font-syne font-semibold text-white text-sm tracking-widest uppercase">
+            PipoStream
+          </p>
+          <p className="text-xs text-white/40">Memuat informasi versi…</p>
+        </div>
+        {/* Subtle progress bar */}
+        <div className="w-32 h-0.5 rounded-full bg-white/10 overflow-hidden">
+          <div className="h-full bg-violet-500 rounded-full animate-[loading_1.4s_ease-in-out_infinite]" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Error Screen ─── */
+function ErrorScreen() {
+  return (
+    <div className="min-h-screen bg-[#060608] flex items-center justify-center p-6">
+      <div className="max-w-sm w-full text-center space-y-6">
+        <div className="text-4xl">⚡</div>
+        <div className="space-y-2">
+          <h2 className="font-syne font-bold text-white text-xl">Gagal Memuat Data</h2>
+          <p className="text-white/50 text-sm leading-relaxed">
+            Tidak dapat terhubung ke server. Periksa koneksi internet kamu dan coba lagi.
+          </p>
+        </div>
+        <button
+          onClick={() => window.location.reload()}
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold rounded-xl transition-colors duration-200"
+        >
+          <span>↺</span> Coba Lagi
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Offline Banner ─── */
+function OfflineBanner({ onDismiss }: { onDismiss: () => void }) {
+  return (
+    <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-sm">
+      <div className="flex items-center gap-3 bg-amber-500/10 border border-amber-500/25 backdrop-blur-xl rounded-2xl px-4 py-3 shadow-xl">
+        <span className="text-amber-400 text-base shrink-0">⚠</span>
+        <p className="text-amber-200/80 text-xs leading-snug flex-1">
+          Mode offline — menggunakan data tersimpan. Koneksi server bermasalah.
+        </p>
+        <button
+          onClick={onDismiss}
+          className="text-amber-400/60 hover:text-amber-400 transition-colors text-lg leading-none shrink-0"
+          aria-label="Tutup"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Install Guide Modal ─── */
+const INSTALL_STEPS = [
+  "Download APK PipoStream versi terbaru",
+  "Buka file APK yang sudah didownload",
+  'Izinkan "Install dari sumber tidak dikenal" jika muncul peringatan',
+  "Klik Install dan tunggu selesai",
+  "Buka & nikmati Anime, Donghua, Komik & Novel!",
+];
+
+function InstallGuideModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-end sm:items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-[#0f0f13] border border-white/10 rounded-3xl w-full max-w-md p-6 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-violet-600/20 flex items-center justify-center text-base">
+              📱
+            </div>
+            <h3 className="font-syne font-bold text-white text-lg">Panduan Install</h3>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/50 hover:text-white transition-all duration-200 text-xl leading-none"
+            aria-label="Tutup modal"
+          >
+            ×
+          </button>
+        </div>
+
+        {/* Steps */}
+        <ol className="space-y-3 mb-6">
+          {INSTALL_STEPS.map((step, i) => (
+            <li key={i} className="flex items-start gap-3">
+              <span className="shrink-0 w-6 h-6 rounded-full bg-violet-600 flex items-center justify-center text-xs font-bold text-white">
+                {i + 1}
+              </span>
+              <p className="text-white/70 text-sm leading-relaxed pt-0.5">{step}</p>
+            </li>
+          ))}
+        </ol>
+
+        {/* Divider */}
+        <div className="h-px bg-white/5 mb-4" />
+
+        <button
+          onClick={onClose}
+          className="w-full py-3 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white font-syne font-semibold text-sm tracking-wide transition-colors duration-200"
+        >
+          Mengerti, Tutup
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Page ─── */
 export default function Home() {
-  const [showInstallGuide, setShowInstallGuide] = useState<boolean>(false);
+  const [showInstallGuide, setShowInstallGuide] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
   const [appData, setAppData] = useState<AppData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchVersionData = async () => {
       try {
         const result = await versionAPI.getVersion();
-        
-        if (result && result.success === true) {
+
+        if (result?.success === true) {
           setAppData({
             version: result.version,
             build_date: result.build_date,
@@ -34,17 +168,16 @@ export default function Home() {
               {
                 name: "MediaFire",
                 url: result.update_url || DEFAULT_VERSION_DATA.download_links[0].url,
-                icon: "🔥"
+                icon: "🔥",
               },
               {
                 name: "Direct Download",
                 url: versionAPI.getDownloadUrl(),
-                icon: "⚡"
-              }
-            ]
+                icon: "⚡",
+              },
+            ],
           });
         } else {
-          // Use fallback data if API fails
           setAppData(DEFAULT_VERSION_DATA);
           setError(true);
         }
@@ -60,79 +193,19 @@ export default function Home() {
     fetchVersionData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin mx-auto"></div>
-          <p className="text-white mt-4">Memuat informasi versi...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!appData) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-white text-lg">Gagal memuat data. Silakan refresh halaman.</p>
-          <button 
-            onClick={() => window.location.reload()} 
-            className="mt-4 px-6 py-2 bg-purple-600 rounded-lg text-white hover:bg-purple-700"
-          >
-            Refresh
-          </button>
-        </div>
-      </div>
-    );
-  }
+  if (loading) return <LoadingScreen />;
+  if (!appData) return <ErrorScreen />;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <main className="min-h-screen bg-[#060608] overflow-x-hidden">
       <Hero />
       <Features />
       <DownloadSection appData={appData} onShowGuide={() => setShowInstallGuide(true)} />
       <Changelog changelog={appData.changelog} version={appData.version} />
       <Footer />
-      
-      {/* Error banner if using fallback data */}
-      {error && (
-        <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:bottom-4 md:max-w-sm bg-yellow-500/90 backdrop-blur-sm text-white p-3 rounded-lg text-sm z-50">
-          <p className="flex items-center gap-2">
-            <span>⚠️</span> 
-            Menggunakan data offline. Koneksi ke server bermasalah.
-          </p>
-        </div>
-      )}
-      
-      {/* Modal Install Guide */}
-      {showInstallGuide && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowInstallGuide(false)}>
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl max-w-md w-full p-6 border border-purple-500/30" onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-white">📱 Panduan Install</h3>
-              <button onClick={() => setShowInstallGuide(false)} className="text-gray-400 hover:text-white text-2xl leading-none">×</button>
-            </div>
-            <div className="space-y-3 text-gray-300">
-              {[
-                "Download APK PipoStream versi terbaru",
-                "Buka file APK yang sudah didownload",
-                "Izinkan install dari sumber tidak dikenal (Jika muncul peringatan)",
-                "Klik Install",
-                "Buka & Nikmati Streaming Anime, Donghua, Komik & Novel!"
-              ].map((step, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</div>
-                  <p>{step}</p>
-                </div>
-              ))}
-            </div>
-            <button onClick={() => setShowInstallGuide(false)} className="mt-6 w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white font-semibold py-2.5 rounded-xl transition">
-              Tutup
-            </button>
-          </div>
-        </div>
-      )}
+
+      {error && showBanner && <OfflineBanner onDismiss={() => setShowBanner(false)} />}
+      {showInstallGuide && <InstallGuideModal onClose={() => setShowInstallGuide(false)} />}
     </main>
   );
 }
