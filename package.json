@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@lenis/react": "^1.1.8",
     "lenis": "^1.1.8",
     "lucide-react": "^1.11.0",
     "next": "16.2.4",
