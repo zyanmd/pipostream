@@ -1,8 +1,9 @@
 // app/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { versionAPI, AppData, ChangelogItem } from "@/lib/api";
+import { ReactLenis } from "@lenis/react";
 import {
   Download,
   Copy,
@@ -615,14 +616,16 @@ export default function Home() {
   if (error || !appData) return <ErrorScreen onRetry={fetchData} />;
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] overflow-x-hidden">
-      <Hero />
-      <Features />
-      <DownloadSection appData={appData} onShowGuide={() => setShowInstallGuide(true)} />
-      <Changelog changelog={appData.changelog} version={appData.version} />
-      <Footer />
+    <ReactLenis root options={{ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) }}>
+      <main className="min-h-screen bg-[#0a0a0f] overflow-x-hidden">
+        <Hero />
+        <Features />
+        <DownloadSection appData={appData} onShowGuide={() => setShowInstallGuide(true)} />
+        <Changelog changelog={appData.changelog} version={appData.version} />
+        <Footer />
 
-      {showInstallGuide && <InstallGuideModal onClose={() => setShowInstallGuide(false)} />}
-    </main>
+        {showInstallGuide && <InstallGuideModal onClose={() => setShowInstallGuide(false)} />}
+      </main>
+    </ReactLenis>
   );
 }
