@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Google Fonts Import ── */
+@import url('https://fonts.googleapis.com/css2?family=Lenis:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 /* ── Custom font utilities ── */
 @layer utilities {
   .font-syne {
@@ -9,6 +12,16 @@
   }
   .font-dm {
     font-family: var(--font-dm), sans-serif;
+  }
+  .font-lenis {
+    font-family: 'Lenis', sans-serif;
+  }
+}
+
+/* ── Base styles ── */
+@layer base {
+  html {
+    font-family: 'Lenis', sans-serif;
   }
 }
 
@@ -19,22 +32,103 @@
   100% { width: 0%;   margin-left: 100%; }
 }
 
-/* ── Smooth scrolling ── */
+/* ── Lenis Smooth Scroll ── */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ── Fallback smooth scrolling ── */
 html {
   scroll-behavior: smooth;
 }
 
-/* ── Scrollbar ── */
+/* ── Scrollbar Styling ── */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #060608;
+  background: #0a0a0f;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #7c3aed40;
   border-radius: 9999px;
+  border: 1px solid #7c3aed20;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #7c3aed80;
+}
+
+::-webkit-scrollbar-corner {
+  background: #0a0a0f;
+}
+
+/* ── Firefox scrollbar ── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #7c3aed40 #0a0a0f;
+}
+
+/* ── Selection color ── */
+::selection {
+  background: #8b5cf6;
+  color: white;
+}
+
+::-moz-selection {
+  background: #8b5cf6;
+  color: white;
+}
+
+/* ── Animations ── */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.2s ease-out forwards;
+}
+
+/* ── Focus styles ── */
+*:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* ── Disable text selection on buttons ── */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Smooth transitions ── */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
