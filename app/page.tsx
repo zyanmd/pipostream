@@ -117,8 +117,8 @@ function LoadingScreen() {
           <div className="absolute -inset-1 border-2 border-[#8b5cf6]/20" />
         </div>
         <div className="text-center">
-          <p className="font-mono font-bold text-white text-sm tracking-widest">PIPOS</p>
-          <p className="text-xs text-white/30 font-mono">LOADING...</p>
+          <p className="font-['Lenis'] font-bold text-white text-sm tracking-widest">PIPOS</p>
+          <p className="text-xs text-white/30 font-['Lenis']">LOADING...</p>
         </div>
         <div className="w-32 h-0.5 bg-[#1a1a2e]">
           <div className="h-full w-1/2 bg-[#8b5cf6] animate-[loading_1s_ease-in-out_infinite]" />
@@ -135,12 +135,12 @@ function ErrorScreen({ onRetry }: { onRetry: () => void }) {
       <div className="max-w-sm w-full text-center space-y-6 border-2 border-red-500/30 p-8 bg-[#0f0f1a]">
         <div className="text-5xl">⛔</div>
         <div>
-          <h2 className="font-mono font-bold text-white text-xl mb-2 tracking-wider">ERROR</h2>
-          <p className="text-white/40 text-sm font-mono">GAGAL TERHUBUNG KE SERVER</p>
+          <h2 className="font-['Lenis'] font-bold text-white text-xl mb-2 tracking-wider">ERROR</h2>
+          <p className="text-white/40 text-sm font-['Lenis']">GAGAL TERHUBUNG KE SERVER</p>
         </div>
         <button
           onClick={onRetry}
-          className="w-full py-3 bg-[#8b5cf6] hover:bg-[#7c3aed] text-white text-sm font-mono font-bold tracking-wider transition-all border-2 border-[#6d28d9]"
+          className="w-full py-3 bg-[#8b5cf6] hover:bg-[#7c3aed] text-white text-sm font-['Lenis'] font-bold tracking-wider transition-all border-2 border-[#6d28d9]"
         >
           ↻ RETRY
         </button>
@@ -171,7 +171,7 @@ function InstallGuideModal({ onClose }: { onClose: () => void }) {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-[#8b5cf6]/20 border-2 border-[#8b5cf6] flex items-center justify-center text-lg">📱</div>
-            <h3 className="font-mono font-bold text-white text-lg tracking-wider">INSTALL GUIDE</h3>
+            <h3 className="font-['Lenis'] font-bold text-white text-lg tracking-wider">INSTALL GUIDE</h3>
           </div>
           <button
             onClick={onClose}
@@ -183,16 +183,16 @@ function InstallGuideModal({ onClose }: { onClose: () => void }) {
         <ol className="space-y-3 mb-6">
           {INSTALL_STEPS.map((step, i) => (
             <li key={i} className="flex items-start gap-3">
-              <span className="shrink-0 w-6 h-6 bg-[#8b5cf6] flex items-center justify-center text-xs font-mono font-bold text-white">
+              <span className="shrink-0 w-6 h-6 bg-[#8b5cf6] flex items-center justify-center text-xs font-['Lenis'] font-bold text-white">
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <p className="text-white/70 text-sm font-mono leading-relaxed">{step}</p>
+              <p className="text-white/70 text-sm font-['Lenis'] leading-relaxed">{step}</p>
             </li>
           ))}
         </ol>
         <button
           onClick={onClose}
-          className="w-full py-3 bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-mono font-bold text-sm tracking-wider border-2 border-[#6d28d9] transition-colors"
+          className="w-full py-3 bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-['Lenis'] font-bold text-sm tracking-wider border-2 border-[#6d28d9] transition-colors"
         >
           CLOSE
         </button>
@@ -218,12 +218,12 @@ function Hero() {
         {/* Brutalist badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 border-2 border-[#8b5cf6]/30 bg-[#1a1a2e] mb-8">
           <Zap className="w-4 h-4 text-[#8b5cf6]" />
-          <span className="font-mono text-xs font-bold text-[#8b5cf6] tracking-[0.2em]">STREAMING TANPA BATAS</span>
+          <span className="font-['Lenis'] text-xs font-bold text-[#8b5cf6] tracking-[0.2em]">STREAMING TANPA BATAS</span>
         </div>
 
         {/* Main title with brutalist style */}
         <h1 className="relative inline-block">
-          <span className="text-6xl md:text-8xl font-mono font-black text-white tracking-tight">
+          <span className="text-6xl md:text-8xl font-['Lenis'] font-black text-white tracking-tight">
             PIPOS
           </span>
           <span className="absolute -top-2 -right-6 text-3xl md:text-4xl text-[#8b5cf6]">✦</span>
@@ -231,7 +231,7 @@ function Hero() {
 
         {/* Subtitle with brutalist block */}
         <div className="mt-6 max-w-2xl mx-auto">
-          <p className="text-xl md:text-2xl text-white/60 font-mono leading-relaxed">
+          <p className="text-xl md:text-2xl text-white/60 font-['Lenis'] leading-relaxed">
             Streaming Anime, Donghua, Komik & Novel
             <br />
             <span className="text-[#8b5cf6]/40 text-sm tracking-[0.3em]">DALAM SATU APLIKASI</span>
@@ -242,7 +242,7 @@ function Hero() {
         <div className="flex flex-wrap justify-center gap-4 mt-10">
           <a
             href="#download"
-            className="group inline-flex items-center gap-3 px-8 py-4 bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-mono font-bold text-sm tracking-wider transition-all border-2 border-[#6d28d9] hover:border-[#5b21b6]"
+            className="group inline-flex items-center gap-3 px-8 py-4 bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-['Lenis'] font-bold text-sm tracking-wider transition-all border-2 border-[#6d28d9] hover:border-[#5b21b6]"
           >
             <Download className="w-5 h-5" />
             DOWNLOAD
@@ -250,7 +250,7 @@ function Hero() {
           </a>
           <a
             href="#features"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-transparent hover:bg-white/5 text-white/70 hover:text-white font-mono font-bold text-sm tracking-wider transition-all border-2 border-white/20 hover:border-[#8b5cf6]/50"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-transparent hover:bg-white/5 text-white/70 hover:text-white font-['Lenis'] font-bold text-sm tracking-wider transition-all border-2 border-white/20 hover:border-[#8b5cf6]/50"
           >
             <Play className="w-4 h-4" />
             FITUR
@@ -260,7 +260,7 @@ function Hero() {
         {/* Brutalist divider */}
         <div className="mt-12 flex items-center justify-center gap-4">
           <div className="w-12 h-0.5 bg-[#8b5cf6]/30" />
-          <span className="text-white/20 font-mono text-xs tracking-[0.3em]">v3.0</span>
+          <span className="text-white/20 font-['Lenis'] text-xs tracking-[0.3em]">v3.0</span>
           <div className="w-12 h-0.5 bg-[#8b5cf6]/30" />
         </div>
       </div>
@@ -305,12 +305,12 @@ function Features() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 border-2 border-[#8b5cf6]/20 bg-[#1a1a2e] mb-4">
             <Sparkles className="w-4 h-4 text-[#8b5cf6]" />
-            <span className="font-mono text-xs font-bold text-[#8b5cf6] tracking-[0.2em]">FITUR</span>
+            <span className="font-['Lenis'] text-xs font-bold text-[#8b5cf6] tracking-[0.2em]">FITUR</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-mono font-black text-white tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-['Lenis'] font-black text-white tracking-tight">
             LEBIH DARI <span className="text-[#8b5cf6]">SEKADAR</span> STREAMING
           </h2>
-          <p className="text-white/40 font-mono text-lg mt-2">Nikmati pengalaman streaming terbaik dengan fitur canggih</p>
+          <p className="text-white/40 font-['Lenis'] text-lg mt-2">Nikmati pengalaman streaming terbaik dengan fitur canggih</p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {features.map((feature, index) => (
@@ -321,8 +321,8 @@ function Features() {
               <div className={`w-12 h-12 border-2 ${colorMap[feature.color]} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                 <feature.icon className={`w-5 h-5 ${iconColorMap[feature.color]}`} />
               </div>
-              <h3 className="text-white font-mono font-bold text-lg mb-1">{feature.title}</h3>
-              <p className="text-white/40 font-mono text-sm leading-relaxed">{feature.desc}</p>
+              <h3 className="text-white font-['Lenis'] font-bold text-lg mb-1">{feature.title}</h3>
+              <p className="text-white/40 font-['Lenis'] text-sm leading-relaxed">{feature.desc}</p>
             </div>
           ))}
         </div>
@@ -354,12 +354,12 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 border-2 border-[#8b5cf6]/20 bg-[#1a1a2e] mb-4">
             <Download className="w-4 h-4 text-[#8b5cf6]" />
-            <span className="font-mono text-xs font-bold text-[#8b5cf6] tracking-[0.2em]">DOWNLOAD</span>
+            <span className="font-['Lenis'] text-xs font-bold text-[#8b5cf6] tracking-[0.2em]">DOWNLOAD</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-mono font-black text-white tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-['Lenis'] font-black text-white tracking-tight">
             DOWNLOAD <span className="text-[#8b5cf6]">PIPOS</span>
           </h2>
-          <p className="text-white/40 font-mono text-lg mt-2">Tersedia untuk Android. Download versi terbaru sekarang!</p>
+          <p className="text-white/40 font-['Lenis'] text-lg mt-2">Tersedia untuk Android. Download versi terbaru sekarang!</p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 mb-10">
@@ -369,8 +369,8 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
             { label: "BUILD", value: appData.build_date.split(" ")[0] },
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-2 px-4 py-2 border-2 border-white/10 bg-[#1a1a2e]">
-              <span className="text-white/30 font-mono text-xs tracking-wider">{item.label}</span>
-              <span className="text-white font-mono font-bold text-sm">{item.value}</span>
+              <span className="text-white/30 font-['Lenis'] text-xs tracking-wider">{item.label}</span>
+              <span className="text-white font-['Lenis'] font-bold text-sm">{item.value}</span>
             </div>
           ))}
         </div>
@@ -385,8 +385,8 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
             <div className="flex items-center justify-center gap-4 p-6">
               <span className="text-4xl">📥</span>
               <div className="text-left">
-                <p className="text-white/50 font-mono text-xs tracking-wider">DOWNLOAD VIA</p>
-                <p className="text-white font-mono font-bold text-xl tracking-wider">SFILE.MOBI</p>
+                <p className="text-white/50 font-['Lenis'] text-xs tracking-wider">DOWNLOAD VIA</p>
+                <p className="text-white font-['Lenis'] font-bold text-xl tracking-wider">SFILE.MOBI</p>
               </div>
               <ExternalLink className="w-6 h-6 text-[#8b5cf6] group-hover:translate-x-1 transition-transform" />
             </div>
@@ -398,11 +398,11 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
             type="text"
             readOnly
             value={downloadUrl}
-            className="flex-1 bg-black/40 text-white/50 font-mono text-sm px-4 py-3 border-2 border-white/10 focus:border-[#8b5cf6]/50 transition-colors"
+            className="flex-1 bg-black/40 text-white/50 font-['Lenis'] text-sm px-4 py-3 border-2 border-white/10 focus:border-[#8b5cf6]/50 transition-colors"
           />
           <button
             onClick={() => handleCopyLink(downloadUrl)}
-            className="flex items-center justify-center gap-2 px-6 py-3 bg-[#8b5cf6]/20 hover:bg-[#8b5cf6]/30 text-white font-mono font-bold text-sm transition-all border-2 border-[#8b5cf6]/30"
+            className="flex items-center justify-center gap-2 px-6 py-3 bg-[#8b5cf6]/20 hover:bg-[#8b5cf6]/30 text-white font-['Lenis'] font-bold text-sm transition-all border-2 border-[#8b5cf6]/30"
           >
             {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
             {copied ? "SALIN!" : "SALIN LINK"}
@@ -412,7 +412,7 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
         <div className="text-center">
           <button
             onClick={onShowGuide}
-            className="inline-flex items-center gap-2 text-white/40 hover:text-white font-mono text-sm transition-colors group border-b border-transparent hover:border-white/20"
+            className="inline-flex items-center gap-2 text-white/40 hover:text-white font-['Lenis'] text-sm transition-colors group border-b border-transparent hover:border-white/20"
           >
             <Smartphone className="w-4 h-4" />
             <span>PANDUAN INSTALL APK</span>
@@ -424,9 +424,9 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
           <div className="mt-10 p-5 border-2 border-white/10 bg-[#1a1a2e]">
             <div className="flex items-center gap-2 mb-2">
               <FileDown className="w-4 h-4 text-[#8b5cf6]" />
-              <h3 className="text-white font-mono font-bold text-sm tracking-wider">RELEASE NOTES</h3>
+              <h3 className="text-white font-['Lenis'] font-bold text-sm tracking-wider">RELEASE NOTES</h3>
             </div>
-            <p className="text-white/50 font-mono text-sm leading-relaxed">{appData.release_notes}</p>
+            <p className="text-white/50 font-['Lenis'] text-sm leading-relaxed">{appData.release_notes}</p>
           </div>
         )}
       </div>
@@ -454,12 +454,12 @@ function Changelog({ changelog, version }: ChangelogProps) {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 border-2 border-[#8b5cf6]/20 bg-[#1a1a2e] mb-4">
             <History className="w-4 h-4 text-[#8b5cf6]" />
-            <span className="font-mono text-xs font-bold text-[#8b5cf6] tracking-[0.2em]">CHANGELOG</span>
+            <span className="font-['Lenis'] text-xs font-bold text-[#8b5cf6] tracking-[0.2em]">CHANGELOG</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-mono font-black text-white tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-['Lenis'] font-black text-white tracking-tight">
             RIWAYAT <span className="text-[#8b5cf6]">UPDATE</span>
           </h2>
-          <p className="text-white/40 font-mono text-lg mt-2">Pantau perkembangan fitur baru di setiap versi</p>
+          <p className="text-white/40 font-['Lenis'] text-lg mt-2">Pantau perkembangan fitur baru di setiap versi</p>
         </div>
 
         {latest?.version === version && (
@@ -469,14 +469,14 @@ function Changelog({ changelog, version }: ChangelogProps) {
                 <Sparkles className="w-4 h-4 text-[#8b5cf6]" />
               </div>
               <div>
-                <span className="text-[#8b5cf6] font-mono font-bold">v{latest.version}</span>
-                <span className="text-white/30 font-mono text-sm ml-2">{latest.date}</span>
+                <span className="text-[#8b5cf6] font-['Lenis'] font-bold">v{latest.version}</span>
+                <span className="text-white/30 font-['Lenis'] text-sm ml-2">{latest.date}</span>
               </div>
-              <span className="ml-auto text-xs px-2 py-0.5 border-2 border-[#8b5cf6]/50 text-[#8b5cf6] font-mono tracking-wider">
+              <span className="ml-auto text-xs px-2 py-0.5 border-2 border-[#8b5cf6]/50 text-[#8b5cf6] font-['Lenis'] tracking-wider">
                 TERBARU
               </span>
             </div>
-            <p className="text-white/70 font-mono text-sm">{latest.changes}</p>
+            <p className="text-white/70 font-['Lenis'] text-sm">{latest.changes}</p>
           </div>
         )}
 
@@ -491,15 +491,15 @@ function Changelog({ changelog, version }: ChangelogProps) {
                 <div className="shrink-0 w-1 h-full min-h-[2rem] bg-[#8b5cf6]/30" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[#8b5cf6] font-mono font-bold text-sm">v{item.version}</span>
+                    <span className="text-[#8b5cf6] font-['Lenis'] font-bold text-sm">v{item.version}</span>
                     {item.version === version && (
-                      <span className="text-[10px] px-1.5 py-0.5 border border-[#8b5cf6]/30 text-[#8b5cf6] font-mono">
+                      <span className="text-[10px] px-1.5 py-0.5 border border-[#8b5cf6]/30 text-[#8b5cf6] font-['Lenis']">
                         CURRENT
                       </span>
                     )}
-                    <span className="text-white/30 font-mono text-xs ml-auto">{item.date}</span>
+                    <span className="text-white/30 font-['Lenis'] text-xs ml-auto">{item.date}</span>
                   </div>
-                  <p className="text-white/50 font-mono text-sm">{item.changes}</p>
+                  <p className="text-white/50 font-['Lenis'] text-sm">{item.changes}</p>
                 </div>
               </div>
             );
@@ -510,7 +510,7 @@ function Changelog({ changelog, version }: ChangelogProps) {
           <div className="text-center mt-8">
             <button
               onClick={() => setShowAll(!showAll)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-white/10 hover:border-[#8b5cf6]/30 bg-[#1a1a2e] hover:bg-[#1a1a2e]/80 text-white/60 hover:text-white font-mono text-sm font-bold transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-white/10 hover:border-[#8b5cf6]/30 bg-[#1a1a2e] hover:bg-[#1a1a2e]/80 text-white/60 hover:text-white font-['Lenis'] text-sm font-bold transition-all"
             >
               {showAll ? (
                 <>
@@ -540,9 +540,9 @@ function Footer() {
       <div className="container mx-auto max-w-4xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <span className="text-white font-mono font-bold tracking-wider">PIPOS</span>
+            <span className="text-white font-['Lenis'] font-bold tracking-wider">PIPOS</span>
             <span className="text-white/20">|</span>
-            <span className="text-white/30 font-mono text-sm">v2025.1</span>
+            <span className="text-white/30 font-['Lenis'] text-sm">v2025.1</span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -560,7 +560,7 @@ function Footer() {
             </a>
           </div>
 
-          <p className="text-white/20 font-mono text-sm flex items-center gap-1">
+          <p className="text-white/20 font-['Lenis'] text-sm flex items-center gap-1">
             MADE WITH <Heart className="w-3 h-3 text-[#8b5cf6] fill-[#8b5cf6]" /> • {year}
           </p>
         </div>
