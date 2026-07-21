@@ -115,7 +115,7 @@ function LoadingScreen() {
           <div className="absolute -inset-1 rounded-2xl bg-violet-500/20 blur-sm animate-ping" />
         </div>
         <div className="text-center">
-          <p className="font-syne font-semibold text-white text-sm tracking-wider">PipoStream</p>
+          <p className="font-syne font-semibold text-white text-sm tracking-wider">PipoS</p>
           <p className="text-xs text-white/30">Memuat...</p>
         </div>
         <div className="w-32 h-1 bg-white/5 rounded-full overflow-hidden">
@@ -149,7 +149,7 @@ function ErrorScreen({ onRetry }: { onRetry: () => void }) {
 
 /* ─── INSTALL GUIDE MODAL ─── */
 const INSTALL_STEPS = [
-  "Download APK PipoStream versi terbaru",
+  "Download APK PipoS versi terbaru",
   "Buka file APK yang sudah didownload",
   'Izinkan "Install dari sumber tidak dikenal"',
   "Klik Install dan tunggu selesai",
@@ -210,7 +210,7 @@ function Hero() {
           <span className="text-xs font-medium text-violet-400 tracking-wider">STREAMING TANPA BATAS</span>
         </div>
         <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent mb-4">
-          PipoStream
+          PipoS
         </h1>
         <p className="text-xl md:text-2xl text-white/50 max-w-2xl mx-auto leading-relaxed">
           Streaming Anime, Donghua, Komik & Novel dalam satu aplikasi
@@ -236,7 +236,6 @@ function Hero() {
 }
 
 /* ─── FEATURES SECTION ─── */
-// Define the color keys as a type
 type ColorKey = "violet" | "amber" | "emerald" | "rose" | "blue" | "purple";
 
 const features = [
@@ -314,6 +313,9 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Gunakan hanya URL sfile.mobi
+  const downloadUrl = "https://sfile.mobi/download/example-id";
+
   return (
     <section id="download" className="py-24 px-4">
       <div className="container mx-auto max-w-4xl">
@@ -323,7 +325,7 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
             <span className="text-xs font-medium text-violet-400 tracking-wider">DOWNLOAD</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent mb-3">
-            Download PipoStream
+            Download PipoS
           </h2>
           <p className="text-white/40 text-lg">Tersedia untuk Android. Download versi terbaru sekarang!</p>
         </div>
@@ -341,36 +343,34 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4 mb-6">
-          {appData.download_links.map((link, index) => (
-            <a
-              key={index}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 p-[1px] transition-all hover:scale-[1.02] hover:shadow-lg hover:shadow-violet-500/25"
-            >
-              <div className="flex items-center justify-center gap-3 rounded-2xl bg-[#060608] p-4 group-hover:bg-transparent transition-colors">
-                <span className="text-2xl">{link.icon}</span>
-                <div>
-                  <p className="text-white/50 text-xs">Download via</p>
-                  <p className="text-white font-bold">{link.name}</p>
-                </div>
-                <ExternalLink className="w-4 h-4 text-white/30 group-hover:text-white transition-colors" />
+        {/* Single Download Button */}
+        <div className="mb-6">
+          <a
+            href={downloadUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 p-[1px] transition-all hover:scale-[1.02] hover:shadow-lg hover:shadow-violet-500/25 block"
+          >
+            <div className="flex items-center justify-center gap-3 rounded-2xl bg-[#060608] p-5 group-hover:bg-transparent transition-colors">
+              <span className="text-3xl">📥</span>
+              <div>
+                <p className="text-white/50 text-xs">Download via</p>
+                <p className="text-white font-bold text-lg">Sfile.mobi</p>
               </div>
-            </a>
-          ))}
+              <ExternalLink className="w-5 h-5 text-white/30 group-hover:text-white transition-colors" />
+            </div>
+          </a>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 bg-white/5 rounded-2xl p-3 mb-6 border border-white/10">
           <input
             type="text"
             readOnly
-            value={appData.download_links[0]?.url || ""}
+            value={downloadUrl}
             className="flex-1 bg-black/40 text-white/50 text-sm px-4 py-3 rounded-xl border border-white/10 focus:outline-none focus:border-violet-500/50 transition-colors"
           />
           <button
-            onClick={() => handleCopyLink(appData.download_links[0]?.url || "")}
+            onClick={() => handleCopyLink(downloadUrl)}
             className="flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 rounded-xl text-white text-sm font-medium transition-all"
           >
             {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
@@ -509,7 +509,7 @@ function Footer() {
       <div className="container mx-auto max-w-4xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <span className="text-white font-bold">PipoStream</span>
+            <span className="text-white font-bold">PipoS</span>
             <span className="text-white/20">|</span>
             <span className="text-white/30 text-sm">v2025.1</span>
           </div>
@@ -563,8 +563,7 @@ export default function Home() {
           release_notes: result.release_notes,
           changelog: result.changelog,
           download_links: [
-            { name: "MediaFire", url: result.update_url, icon: "🔥" },
-            { name: "Direct", url: versionAPI.getDownloadUrl(), icon: "⚡" },
+            { name: "Sfile.mobi", url: "https://sfile.mobi/download/example-id", icon: "📥" },
           ],
         });
       } else {
