@@ -313,8 +313,8 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Gunakan hanya URL sfile.mobi
-  const downloadUrl = "https://sfile.mobi/download/example-id";
+  // Ambil URL dari API
+  const downloadUrl = appData.update_url || "";
 
   return (
     <section id="download" className="py-24 px-4">
@@ -343,7 +343,7 @@ function DownloadSection({ appData, onShowGuide }: DownloadSectionProps) {
           ))}
         </div>
 
-        {/* Single Download Button */}
+        {/* Single Download Button - Menggunakan URL dari API */}
         <div className="mb-6">
           <a
             href={downloadUrl}
@@ -563,7 +563,7 @@ export default function Home() {
           release_notes: result.release_notes,
           changelog: result.changelog,
           download_links: [
-            { name: "Sfile.mobi", url: "https://sfile.mobi/download/example-id", icon: "📥" },
+            { name: "Sfile.mobi", url: result.update_url, icon: "📥" },
           ],
         });
       } else {
