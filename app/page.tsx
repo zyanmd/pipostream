@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { versionAPI, AppData, ChangelogItem } from "@/lib/api";
-import { ReactLenis } from "@lenis/react";
+import Lenis from "lenis";
 import {
   Download,
   Copy,
@@ -576,6 +576,34 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [showInstallGuide, setShowInstallGuide] = useState(false);
+  const lenisRef = useRef<Lenis | null>(null);
+
+  useEffect(() => {
+    // Initialize Lenis
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+    });
+
+    lenisRef.current = lenis;
+
+    // Connect Lenis to RAF
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    // Cleanup
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   const fetchData = async () => {
     setLoading(true);
@@ -616,16 +644,14 @@ export default function Home() {
   if (error || !appData) return <ErrorScreen onRetry={fetchData} />;
 
   return (
-    <ReactLenis root options={{ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) }}>
-      <main className="min-h-screen bg-[#0a0a0f] overflow-x-hidden">
-        <Hero />
-        <Features />
-        <DownloadSection appData={appData} onShowGuide={() => setShowInstallGuide(true)} />
-        <Changelog changelog={appData.changelog} version={appData.version} />
-        <Footer />
+    <main className="min-h-screen bg-[#0a0a0f] overflow-x-hidden">
+      <Hero />
+      <Features />
+      <DownloadSection appData={appData} onShowGuide={() => setShowInstallGuide(true)} />
+      <Changelog changelog={appData.changelog} version={appData.version} />
+      <Footer />
 
-        {showInstallGuide && <InstallGuideModal onClose={() => setShowInstallGuide(false)} />}
-      </main>
-    </ReactLenis>
+      {showInstallGuide && <InstallGuideModal onClose={() => setShowInstallGuide(false)} />}
+    </main>
   );
 }
